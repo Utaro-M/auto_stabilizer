@@ -15,7 +15,7 @@ public:
   double defaultDoubleSupportRatio = 0.15; // defaultStepTimeのうちの、両足支持期の時間の割合. 0より大きく1未満
   double defaultStepHeight = 0.05; // goPosやgoVelocityのときに自動生成されるfootstepの足上げ高さ[m]. 0以上
   unsigned int goVelocityStepNum = 6; // goVelocity中にfootStepNodesListの将来の何ステップぶんを常に生成するか. 1以上
-  bool isModifyFootSteps = true; // 着地位置時間修正を行うかどうか
+  bool isModifyFootSteps = false; // 着地位置時間修正を行うかどうか
   double overwritableRemainTime = 0.2; // 0以上. 単位[s]. 次indexまでの残り時間がこの値を下回っている場合、着地位置時間修正を行わない. DOWN_PHASEのときにfootstepNodesList[0]のdstCoordsはgenCoordsよりも高い位置に変更されることがないようにするために、LegCoordsGeneratorのdelayTimeOffset以上の値にせよ.
   double overwritableMinTime = 0.3; // 0より大きい. 単位[s]. 次indexまでの残り時間がこの値を下回るようには着地時間修正を行わない. もともと下回っている場合には、その値を下回るようには着地時間修正を行わない. これが無いと脚を空中から下ろす時間が足りなくて急激に動く
   double overwritableMinStepTime = 0.6; // 0より大きい. 単位[s]. 現index開始時からの経過時間がこの値を下回るようには着地時間修正を行わない. もともと下回っている場合には、その値を下回るようには着地時間修正を行わない. これが無いと脚を地面から上げて下ろす時間が足りなくて急激に動く
@@ -35,7 +35,7 @@ public:
   double touchVel = 0.3; // 0より大きい. 単位[m/s]. この速さで足を下ろした場合に着地までに要する時間をremainTimeが下回るまで、足下げを始めない. 0.5だと実機では少し速すぎるか?
   bool isEmergencyStepMode = false; // 現在静止状態で、CapturePointがsafeLegHullの外にあるまたは目標ZMPからemergencyStepCpCheckMargin以上離れているなら、footstepNodesListがemergencyStepNumのサイズになるまで歩くnodeが末尾に入る. (modifyFootSteps=trueのときのみ有効)
   double emergencyStepCpCheckMargin = 0.05; // [m]. EmergencyStepの閾値. 0以上
-  bool isStableGoStopMode = true; // 現在非静止状態で、着地位置修正を行ったなら、footstepNodesListがemergencyStepNumのサイズになるまで歩くnodeが末尾に入る. (modifyFootSteps=trueのときのみ有効)
+  bool isStableGoStopMode = false; // 現在非静止状態で、着地位置修正を行ったなら、footstepNodesListがemergencyStepNumのサイズになるまで歩くnodeが末尾に入る. (modifyFootSteps=trueのときのみ有効)
   unsigned int emergencyStepNum = 6; // 1以上
 
   // FootStepGeneratorでしか使わないパラメータ. startAutoBalancer時に初期化が必要
